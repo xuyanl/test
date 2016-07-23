@@ -4,41 +4,37 @@
 <meta charset="utf-8">
 <title>百联网上商城</title>
 <link href="src/css/index.css" type="text/css" rel="stylesheet" />
-<style></style>
+<link href="src/css/bootstrap.css" type="text/css" rel="stylesheet">
+<style>
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,img,input,textarea,select{
+margin:0;padding:0;}
+body{font:12px "宋体","微软雅黑";background:#f7f7f7;}
+img{border:0;display:block;}
+ul,li{list-style:none;}
+a:hover{text-decoration:none;}
+</style>
 <script src="src/assets/jquery-1.12.0.js"></script>
-<script>
-    $(function(){
-        var $focus = $('#focus');
-        var $bigpic = $('#bigpic');
-        var $smallpic = $('#smallpic');
-        var $button = $focus.find('a');
-
+<script src="src/js/index.js"></script>
+<script type="text/javascript">
+    //banner图片轮播
+$(function(){
+        var $banner_pic = $('.banner_pic');
+        var $ul_pic = $('.ul_pic');
+        var $button = $banner_pic.find('a');
         var index = 0;
-        var imgs = $bigpic.find('li');
-        var simgs = $smallpic.find('li');
-        var timer = setInterval(foucs,800);
+        var imgs = $ul_pic.find('li');
+        var timer = setInterval(foucs,2000);
         show();
-
-        $focus.on('mouseout',function(){
-            timer = setInterval(foucs,800);
+        $banner_pic.on('mouseout',function(){
+            timer = setInterval(foucs,2000);
         });
-        $focus.on('mouseover',function(){
+        $banner_pic.on('mouseover',function(){
             clearInterval(timer);
-        })
-
-        simgs.each(function(idx){
-            $(this).on('click',function(){
-                index = idx;
-                show();
-            })
-        })
-
+        });
         // 点击左右按钮实现图片跳转
         $button.each(function(){
             $(this).on('click',function(){
                 ($(this).attr('class') == 'prev') ? (index--) : (index++);
-            
-                //临界点的判断
                 //当前index到达第一张后
                 if(index<0){
                     index = imgs.length -1;
@@ -46,8 +42,10 @@
                     index = 0;
                 }
                 show();
-            })
-        })
+
+            });
+
+        });
 
         function foucs(){
             if(index >= imgs.length){
@@ -55,27 +53,67 @@
             }
             show();
             index++;
-        }
+        };
 
         function show(){
              $.each(imgs,function(idx){
                 if(idx == index){
-                    $(this).animate({opacity:1});
-                    $(simgs[idx]).animate({opacity:1});
+                    $(this).animate({opacity:1}).show();
                 }
                else{
-                    $(this).animate({opacity:0});
-                    $(simgs[idx]).animate({opacity:.5});
+                    $(this).animate({opacity:0}).hide();
+                   
                }
-            })
-        }
+            });
+        };
+
+        //楼梯
+
+        var $nav = $('.floor_nav');
+            var $floor = $('.main .floors');
+
+            // 2）滚动
+            $(window).on('scroll',function(){
+                var scrollTop = $(window).scrollTop();
+                // 1>滚动距离大于600，显示楼层导航，小于600时隐藏
+                if(scrollTop > 600){
+                    $nav.fadeIn('slow');//600
+                }else{
+                    $nav.fadeOut('fast');//200
+                }
+
+                // 2>滚动到某一楼层时，高亮显示导航对应楼层
+                // 得到当前楼层的index值
+                $floor.each(function(idx,ele){
+                    if(scrollTop >= $(ele).offset().top && scrollTop < $(ele).offset().top + $(ele).outerHeight()/2){
+                        $nav.find('li').not('.floor_nav_last').removeClass('hover').eq(idx).addClass('hover');
+
+                        // 退出循环
+                        return false;
+                    }
+                });
+            });
+            
+            // 3）点击楼层导航，跳转到相应楼层
+            $nav.on('click','li',function(){
+                var index = $(this).index();
+                var top;
+                if($(this).hasClass('floor_nav_last')){
+                    top = 0;
+                }else{
+                    top = $floor.eq(index).offset().top;
+                }
+                // $(window).scrollTop(top);
+                $('html,body').animate({scrollTop:top});
+            });
     })
+
 </script>
 </head>	
 <body>
 <!--***********************************tools************************************-->
    	<div class="tools">
-    	<div class="wrap">
+    	<div class="wrap" id="top">
             <a href="#" class="siteMap">网站导航<span></span></a>
             <ul>
                 <li class="first">
@@ -90,6 +128,29 @@
                 <li><a href="#">掌上百联<span></span></a></li>
                 <li><a href="#">购物车</a></li>
             </ul>
+        </div>
+    </div>
+    <div class="black_rig">
+        <div class="peop">
+            <a href="#"><img src="src/img/peop.png" /></a>
+        </div>
+        <div class="shoppingCar">
+            <a href="#"><img src="src/img/shoppingCar.png" /></a>
+        </div>
+        <div class="star">
+            <a href="#"><img src="src/img/star.png" /></a>
+        </div>
+        <div class="history">
+            <a href="#"><img src="src/img/history.png" /></a>
+        </div>
+        <div class="app">
+            <a href="#"><img src="src/img/app.png" /></a>
+        </div>
+        <div class="kefu">
+            <a href="#"><img src="src/img/kefu.png" /></a>
+        </div>
+        <div class="bktop">
+            <a href="#top"><img src="src/img/top.png" /></a>
         </div>
     </div>
 <!--***********************************head************************************-->
@@ -121,12 +182,36 @@
 	<div class="nav">
     	<div class="nav_list">
             <div class="nav_left"><i></i><span>所有商品分类</span></div>
+            <div class="banner_content">
+                <ul class="banner_left">
+                    <li>
+                        <a href="#"><b class="jink"></b><span>百联进口 全球购</span></a>
+                        <div class="left_show">
+                           百联进口 全球购
+                        </div>
+                    </li>
+                    <li><a href="#"><b class="shengx"></b><span>生鲜食品</span></a></li>
+                    <li><a href="#"><b class="ship"></b><span>食品 酒饮 粮油</span></a></li>
+                    <li><a href="#"><b class="meir"></b><span>美容护理</span></a></li>
+                    <li><a href="#"><b class="muy"></b><span>母婴 玩具</span></a></li>
+                    <li><a href="#"><b class="canc"></b><span>餐厨用具 	家居家装</span></a></li>
+                    <li><a href="#"><b class="jiaq"></b><span>家清 纸品 一次性</span></a></li>
+                    <li><a href="#"><b class="nvz"></b><span>女装 男装</span></a></li>
+                    <li><a href="#"><b class="xiex"></b><span>鞋靴箱包 珠宝饰品</span></a></li>
+                    <li><a href="#"><b class="shouj"></b><span>手机数码 电脑办公</span></a></li>
+                    <li><a href="#"><b class="jiay"></b><span>家用电器</span></a></li>
+                    <li><a href="#"><b class="yund"></b><span>运动户外 汽车用品</span></a></li>
+                    <li><a href="#"><b class="yingy"></b><span>营养滋补 保健器材</span></a></li>
+                    <li><a href="#"><b class="lip"></b><span>礼品卡 充值缴费</span></a></li>
+                </ul>
+                
+         	</div>
             <ul class="nav_right">
                 <li class="nav_right_first"><a href="#" >首页</a></li>
                 <li><a href="#">生活日用</a></li>
                 <li><a href="#">24H百货</a></li>
                 <li><a href="#">全球购</a></li>
-                <li><a href="#" class="imgs"><img src="src/img/nav-gif.gif" /></a></li>
+                <li><a href="#"><img src="src/img/nav-gif.gif"  class="imgs"/></a></li>
                 <li><a href="#">电器城</a></li>
             </ul>
             <div class="kd_car"><img src="src/img/kdj_car.gif" /></div>
@@ -134,61 +219,71 @@
     </div>
 <!--***********************************banner************************************-->
 	<div class="banner">
-        <ul class="banner_pic">
-        	<li><a href="#"><img src="src/img/res17436.jpg" /></a></li>
-            <li><a href="#"><img src="src/img/res17454.jpg" /></a></li>
-            <li><a href="#"><img src="src/img/res17485.jpg" /></a></li>
-            <li><a href="#"><img src="src/img/res17423.jpg" /></a></li>
-            <li><a href="#"><img src="src/img/res17678.jpg" /></a></li>
-            <a href="#" class="prev">&lt;</a>
-            <a href="#" class="next">&gt;</a>
-        </ul>
-        
-        <div class="banner_content">
-        	<ul class="banner_left">
-            	<li><a href="#"><b class="jink"></b><span>百联进口 全球购</span></a></li>
-                <li><a href="#"><b class="shengx"></b><span>生鲜食品</span></a></li>
-                <li><a href="#"><b class="ship"></b><span>食品 酒饮 粮油</span></a></li>
-                <li><a href="#"><b class="meir"></b><span>美容护理</span></a></li>
-                <li><a href="#"><b class="muy"></b><span>母婴 玩具</span></a></li>
-                <li><a href="#"><b class="canc"></b><span>餐厨用具 	家居家装</span></a></li>
-                <li><a href="#"><b class="jiaq"></b><span>家清 纸品 一次性</span></a></li>
-                <li><a href="#"><b class="nvz"></b><span>女装 男装</span></a></li>
-                <li><a href="#"><b class="xiex"></b><span>鞋靴箱包 珠宝饰品</span></a></li>
-                <li><a href="#"><b class="shouj"></b><span>手机数码 电脑办公</span></a></li>
-                <li><a href="#"><b class="jiay"></b><span>家用电器</span></a></li>
-                <li><a href="#"><b class="yund"></b><span>运动户外 汽车用品</span></a></li>
-                <li><a href="#"><b class="yingy"></b><span>营养滋补 保健器材</span></a></li>
-                <li><a href="#"><b class="lip"></b><span>礼品卡 充值缴费</span></a></li>
+    	<div class="banner_pic">
+            <ul class="ul_pic">
+                <li><a href="#"><img src="src/img/res17436.jpg" /></a></li>
+                <li style="background:#f5fae4"><a href="#"><img src="src/img/res17454.jpg" /></a></li>
+                <li style="background:#72ceff"><a href="#"><img src="src/img/res17485.jpg" /></a></li>
+                <li style="background:#efa0a6"><a href="#"><img src="src/img/res17678.jpg" /></a></li>
+                
             </ul>
-            <div class="banner_right">
-        		<div class="bulletin">
-                	<p class="more"><a href="#">更多</a></p>
-                	<ol>
-                    	<li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
-                        <li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
-                        <li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
-                    </ol>
-                </div>
-                <div class="life">
-                	<h3></h3>
-                    <dl class="life_first">
-                    	<dt><img src="src/img/live_ico1.png" /></dt>
-                        <dd>充话费</dd>
-                    </dl>
-                    <dl class="life_second">
-                    	<dt><img src="src/img/live_ico2.png" /></dt>
-                        <dd>游戏</dd>
-                    </dl>
-                    <dl class="life_three">
-                    	<dt><img src="src/img/life_ico3.png" /></dt>
-                        <dd>固话</dd>
-                    </dl>	
-                       
-                    
-                </div>
-        	</div>
+            <div class="lef_rig">
+                <a href="#" class="prev">&lt;</a>
+                <a href="#" class="next">&gt;</a>
+            </div>
         </div>
+        <div class="banner_right">
+                    <div class="bulletin">
+                        <p class="more"><a href="#">更多</a></p>
+                        <ol>
+                            <li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
+                            <li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
+                            <li><a href="#"><b>[必备]</b> 全球家庭除菌大牌</a></li>
+                        </ol>
+                    </div>
+                    <div class="life">
+                        <h3></h3>
+                        <dl class="life_first">
+                            <dt><img src="src/img/live_ico1.png" /></dt>
+                            <dd>充话费</dd>
+                        </dl>
+                        <dl class="life_second">
+                            <dt><img src="src/img/live_ico2.png" /></dt>
+                            <dd>游戏</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico3.png" /></dt>
+                            <dd>固话</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico4.png" /></dt>
+                            <dd>电费</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico5.png" /></dt>
+                            <dd>水费</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico6.png" /></dt>
+                            <dd>燃气费</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico7.png" /></dt>
+                            <dd>充流量</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico8.png" /></dt>
+                            <dd>加油卡</dd>
+                        </dl>
+                        <dl class="life_three">
+                            <dt><img src="src/img/life_ico9.png" /></dt>
+                            <dd>礼品卡</dd>
+                        </dl>
+                        <div class="notice">
+                        	<a href="#"><span>特别公告：百联E城 已迁移至i百联</span></a>
+                        </div>	
+                    </div>
+                </div>
     </div>
 <!--***********************************Featured Channel************************************-->
 	<div class="featured">
@@ -221,141 +316,164 @@
         </div>
     </div>
 <!--***********************************floor************************************-->
-	<div class="floor_first">
+    <div class="main">
+	<div class="floors">
     	<h3 class="floor_tit"></h3>
-        <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
+        <div class="goods_left">
+            
+                    <img src="src/img/goods_left.jpg" />
+                    <img src="src/img/goods_left2.jpg" />
+               
+           
+        </div>
+
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-    <div class="floor_second">
+    <div class="floors floor_second">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-    <div class="floor_three">
+    <div class="floors floor_three">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>	
-	<div class="floor_four">
+	<div class="floors floor_four">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-   	<div class="floor_five">
+   	<div class="floors floor_five">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-    <div class="floor_six">
+    <div class="floors floor_six">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-    <div class="floor_seven">
+    <div class="floors floor_seven">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
     </div>
-    <div class="floor_eight">
+    <div class="floors floor_eight">
     	<h3 class="floor_tit"></h3>
         <div class="goods_left"><img src="src/img/goods_left.jpg" /></div>
         <div class="floor_goods">
         	<div class="goods_img">
-            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first" /></a>
+            	<a href="#"><img src="src/img/goods_img1.jpg" class="img_first"/></a>
                 <a href="#"><img src="src/img/goods_img2.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img3.jpg" /></a>
+                <a href="#"><img src="src/img/goods_img3.jpg"  class="img_last" /></a>
             </div>
             <div class="goods_btm">
             	<a href="#"><img src="src/img/goods_img4.jpg" /></a>
             	<a href="#"><img src="src/img/goods_img5.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img6.jpg" /></a>
-                <a href="#"><img src="src/img/goods_img7.jpg" /></a>
+                <a href="#" class="img_three"><img src="src/img/goods_img6.jpg"/></a>
+                <a href="#" class="img_four four"><img src="src/img/goods_img7.jpg" class="img_four"/></a>
             </div>
         </div>
+    </div>
+    </div>
+<!--*******************************floors***********************************-->
+    <div class="floor_nav">
+        <ul>
+            <li class="hover">1F <span>生鲜</span> </li>
+            <li>2F <span>进口</span> </li>
+            <li>3F <span>食品</span> </li>
+            <li>4F <span>清洁</span> </li>
+            <li>5F <span>百货</span> </li>
+            <li>6F <span>家居</span> </li>
+            <li>7F <span>母婴</span> </li>
+            <li>8F <span>数码</span> </li>
+            <li class="floor_nav_last">Top</li>
+        </ul>
     </div>
 <!--***********************************like************************************-->
 	<div class="featured like">
