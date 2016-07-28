@@ -1,0 +1,88 @@
+
+/*-----------------------------------nav----------------------------------------*/
+.banner img{
+	width:100%;
+	height: 446px;
+}
+/*------------------------------------list_pic-------------------------------------------*/
+.list_pic{
+	width:100%;
+	overflow: hidden;
+	padding-top:10px;
+	background: #4a2f26;
+}
+.show_img img{
+	width:186px;
+}
+.show_img{
+	width:970px;
+	margin:0 auto;
+	padding-bottom:10px;
+	overflow: hidden;
+}
+.show_img dl{
+	width:186px;
+	height: 307px;
+	background: #fff;
+	float:left;
+	margin:10px 8px 0 0;
+	overflow: hidden;
+}
+.show_img dt{
+	width:186px;
+	overflow: hidden;
+}
+.show_img dd{
+	margin-top:8px;
+	padding:7px 0 0 10px;
+}
+.show_img dd span{
+	color:red;
+	font-size: 16px;
+	font-weight: bold;
+}
+.show_img .last{
+	padding:0;
+}
+.last a{
+	padding-top:0;
+	display: block;
+	background: red;
+	color:#fff;
+	width:170px;
+	margin:0 auto;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

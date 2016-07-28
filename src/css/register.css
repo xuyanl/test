@@ -1,0 +1,150 @@
+
+img{display:inline-block;}
+
+/*-------------------------heard----------------------------------*/
+.user{
+	width:950px;
+	height: 110px;
+	line-height: 110px;
+	margin:0px auto;
+}
+.user img{
+	
+	width: 127px;
+	float:left;
+}
+
+/*------------------------register------------------------*/
+.register{
+	width:759px;
+	height: auto;
+	padding: 50px 0px 50px 191px;
+	border:1px solid #ccc;
+	margin:0 auto;
+	background: #fff;
+}
+.join{
+	width:950px;
+	height: 50px;
+	margin:0 auto;
+	line-height: 50px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-bottom: none;
+}
+.join p{
+	margin-left:20px;
+	float:left;
+	color:red;
+	font-size: 16px;
+	font-weight: bold;
+}
+.join span{
+	float:right;
+	margin-right: 10px;
+}
+
+.left{
+	width:759px;
+	padding: 10px 0px;
+	height: 40px;
+	overflow: hidden;
+	
+}
+.left_lf{
+	font-size: 15px;
+	font-family: 'Microsoft YaHei';
+	color: #333333;
+	float:left;
+	width: 136px;
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+.left input{
+	width:300px;
+	height: 36px;
+	background: #ffffff url(../css/img/register.png) no-repeat 10px 9px;
+	text-indent: 30px;
+	border:1px solid #999;
+	border-radius: 3px;
+}
+.left .password{
+	background-position: 10px -52px;
+}
+.left .confir{
+	background-position: 10px -52px;
+}
+.left .mobile{
+	background-position: 10px -180px;
+}
+}
+.left .email{
+	background-position: 10px -287px;
+}
+.left .testing{
+	width:175px;
+	background-position: 10px -52px;
+}
+.left .test{
+	float:left;
+}
+.left .imgshow{
+	float:left;
+	margin:0 10px;
+	width:115px;
+	line-height: 36px;
+	height:36px;}
+.left .change {
+	float:left;
+	height: 40px;
+	line-height: 40px;
+}
+.left .txt{
+	background: #f0f0f0;
+	border:1px solid #999;
+	text-align: center;
+}
+.left .agree{
+	width:15px;
+	height: 15px;
+}
+.left .read{
+	float:left;
+	margin-left:20px;
+}
+.last{
+	margin-top:-25px;
+}
+.last .reg{
+	width:300px;
+	height: 36px;
+	float: left;
+	line-height: 36px;
+	text-align: center;
+	background: #e6133c;
+	border-radius: 3px;
+}
+.last .reg a{
+	font-size: 16px;
+	color:#fff;
+}
+.last .reg:hover{
+	cursor: pointer;
+	background: red;
+}
+.bottom{
+	height: 1px;
+	width:952px;
+	margin:8px auto 20px;
+	box-shadow: 0px -5px 15px  #000;
+}
+.bottom_nav .p_last{
+	padding-bottom: 0;
+}
+.bottom_nav p{
+	color:#999;
+}
+.bottom_nav a{
+	color:#000;
+}

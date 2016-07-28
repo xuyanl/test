@@ -1,0 +1,153 @@
+/*-------------------------------------header----------------------*/
+body{
+	background:#fff;
+}
+.user{
+	width:950px;
+	height: 100px;
+	line-height: 100px;
+	margin:0px auto;
+}
+.user img{
+	width: 127px;
+	float:left;
+}
+.login_main{
+	background: url(../img/login-body.jpg) no-repeat;
+}
+.login{
+	width:500px;
+	height: auto;
+	overflow: hidden;
+	margin:10px auto;
+	border:8px solid #ccc;
+	background: #fff;
+	font-family: 'Microsoft YaHei';
+}
+.logins{
+	width: 300px;
+	height: auto;
+	margin: 0px auto;
+	padding: 45px 0px;
+}
+.club_log{
+	width:300px;
+	height: 30px;
+}
+.club_log p,h2{
+	float:left;
+	height: 30px;
+	font-weight: normal;
+	line-height: 30px;
+}
+.club_log p{
+	float: right;
+}
+.user_log{
+	width:300px;
+	height: 100px;
+	margin-top:30px;
+}
+.user_log input{
+	width:300px;
+	height: 30px;
+	border:1px solid #999;
+	border-radius: 3px;
+	margin:10px 0;
+}
+.forget{
+	width:300px;
+	text-align: right;
+	height: 50px;
+	line-height: 50px;
+}
+.reg{
+	width:300px;
+	height: 36px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	background: #e6133c;
+	border-radius: 3px;
+	overflow: hidden;
+}
+.reg a{
+	font-size: 16px;
+	color:#fff;
+}
+.reg:hover{
+	cursor: pointer;
+	background: red;
+}
+.card{
+	height: 50px;
+	width:300px;
+	line-height: 50px;
+}
+.card i{
+	float:left;
+	width:30px;
+	height: 20px;
+	margin:20px 0 0 150px;
+	background: url(../css/img/right-icon.png) no-repeat;}
+.other span{
+	background: #fff;
+	padding: 0px 15px;
+	color: #999;
+	line-height: 49px;
+}
+.other{
+	height: 24px;
+	width:300px;
+	border-bottom: 1px solid #dddddd;
+	text-align: center;
+	line-height: 49px;
+}
+.other_img{
+	margin-top:30px;
+	width:300px;
+	height: 22px;
+}
+.other_img li{
+	float:left;
+	padding:0 4px;
+}
+.other_img li a{
+	float: left;
+	width:66px;
+	height: 22px;
+}
+.other_img li .img_1{
+	background: url(../css/img/login-cion-1.png) no-repeat center bottom;
+}
+.other_img li .img_2{
+	background: url(../css/img/login-cion-2.png) no-repeat center bottom;
+}
+.other_img li .img_3{
+	background: url(../css/img/login-cion-3.png) no-repeat center bottom;
+}
+.other_img li .img_4{
+	background: url(../css/img/login-cion-4.png) no-repeat center bottom;
+}
+.other_img li a:hover{
+	background-position: 0 0;
+}
+.bottom_nav{
+	margin-top:50px;
+}
+.bottom_nav .p_last{
+	padding-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
